@@ -5,22 +5,21 @@
 - can only generate qr codes from text input
 - will end project once program can generate qr codes from text files.
 '''
-
 import qrcode
 from PIL import Image
 from tkinter import *
 from datetime import datetime
 
-data = None
+data = None #global variable to hold data for qr code generation
 
-def generate_qr():
+def generate_qr(): #process of generating qr code
     date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S") # get current date and time for unique filename
     qr = qrcode.QRCode(version=3, box_size=5.5, border=4)
     qr.add_data(data)
     qr.make(fit=True)
     image = qr.make_image(fill="Black", back_color="Red")
 
-    image.save(f"qr_code{date}.png")
+    image.save(f"qr_code{date}.png") #saves qr code with filename
 
     #show QR code in main GUI
     qr_image = PhotoImage(file=f"qr_code{date}.png")
@@ -28,7 +27,7 @@ def generate_qr():
     qr_canvas.image = qr_image
 
 
-def set_data():
+def set_data(): #sets the data variable, putting the data got from entry box.
     global data
     data = entry.get()
 
