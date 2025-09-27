@@ -1,9 +1,9 @@
 #gonna try and make a practice project for qr code generation
 
-#current version: 1.0
+#current version: 1.1
 '''
-- can only generate qr codes from text input
-- will end project once program can generate qr codes from text files.
+- can now handle small text files.
+- future versions will try to handle larger text files.
 '''
 import qrcode
 from PIL import Image, ImageTk
