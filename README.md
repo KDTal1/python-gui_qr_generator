@@ -1,6 +1,7 @@
 # python-gui_qr_generator
 compiles text files and entry texts.
 
-current version is at 1.1, where the program can still work with small text files
+current version is at 1.2, where the program can still work with small text files
 
-future version will include url generator for larger text files
+can now deal with larger txt files.
+fixed the problem w/ the not visible QR.

@@ -1,12 +1,15 @@
-#gonna try and make a practice project for qr code generation
+#current version: 1.2
+'''
+- can now handle text files as input.
+- fixed the bug where qr code image viewer wouldnt show up sometimes.
+- can now handle text files.
+'''
+#SO MANY IMPORTS I CANT DO THIS ANYMORE AAAAAAAAAA
+#all for a code generator?? bruh
 
-#current version: 1.1
-'''
-- can now handle small text files.
-- future versions will try to handle larger text files.
-'''
 import qrcode
-from PIL import Image, ImageTk
+import os
+from PIL import ImageTk
 from tkinter import *
 from tkinter import filedialog
 from datetime import datetime
@@ -22,11 +25,6 @@ def generate_qr(): #process of generating qr code
 
     image.save(f"qr_code{date}.png") #saves qr code with filename
 
-    #show QR code in main GUI
-    qr_canvas.qr_image_ref = ImageTk.PhotoImage(file=f"qr_code{date}.png")
-    qr_canvas.create_image(100, 100, image=qr_canvas.qr_image_ref)
-    qr_canvas.image = qr_canvas.qr_image_ref
-
 def set_data(): #sets the data variable, putting the data got from entry box.
     global data
     data = entry.get()
@@ -41,10 +39,25 @@ def browse_file(): #function to browse and read text file content
         entry.delete(0, END)
         entry.insert(0, data)
 
-#
+def view_qr(): #function to view the generated QR code in a new window
+    top = Toplevel()
+    top.title("Generated QR Code")
+    label = Label(top, text="QR CODE GENERATED:")
+    qr_image = ImageTk.PhotoImage(file=f"qr_code{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.png")
+    label = Label(top, image=qr_image)
+    label.image = qr_image  # keep a reference!
+    label.pack()
+
+def clear_entry():
+    entry.delete(0, END)
+
+def open_folder():
+    os.startfile(os.getcwd())
+
+#main window
 main = Tk()
 main.title("QR Code Generator")
-main.geometry("500x650")
+main.geometry("500x400")
 
 label = Label(main, text="Enter anything to generate QR Code")
 label.pack(pady=20)
@@ -52,15 +65,17 @@ entry = Entry(main, width=30, font=('Arial', 17))
 entry.pack(pady=10)
 label_file = Label(main, text="Or, you can enter a text file path to generate QR code from its content.")
 label_file.pack(pady=10)
+button4 = Button(main, text="Open Current Folder", command=open_folder)
+button4.pack(pady=10)
+button3 = Button(main, text="Clear Entry", command=lambda: entry.delete(0, END))
+button3.pack(pady=10)
 button2 = Button(main, text="Browse File", command=browse_file)
 button2.pack(pady=10)
-button = Button(main, text="Generate QR Code", command=lambda: [set_data(), generate_qr()])
+button = Button(main, text="Generate QR Code", command=lambda: [set_data(), generate_qr(), view_qr()])
 button.pack(pady=20)
 
-#add canvas for QR code display
-frame = Frame(main, width=400, height=400)
-frame.pack(pady=20)
-qr_canvas = Canvas(frame, width=200, height=200)
-qr_canvas.pack(pady=45, anchor="center")
+
+#dont run before script finishes
+
 
 main.mainloop()
