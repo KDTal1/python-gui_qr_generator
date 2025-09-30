@@ -1,21 +1,22 @@
-#current version: 1.3.1
+#current version: 1.3.2
 #made in Python 3.13
 '''
-1.3.1:
-- Optimizations in code
-- Comments spread evenly.
+1.3.2:
+- Added custom error messages
 '''
 
 # Script uses these following imports.
-import qrcode
-import os 
-from PIL import ImageTk
-from tkinter import * 
+import qrcode, os, random, json
+from PIL import ImageTk 
+from tkinter import *
 from tkinter import filedialog, messagebox
 from datetime import datetime
 
 color = ["White", "Green"] # Used for color selection.
 qrCode_folder = "qrcodes"
+
+#json files to turn into variables
+error_messages = "error_messages.json"
 
 # Variables that will be used for returning value
 date = ""
@@ -25,6 +26,15 @@ link = ""
 # --- FUNCTIONS ---
 def clear_entry():
     entry.delete(0, END)
+
+def jsonTurned_variable(): # Plug error_messaegs.json into the error_message variable.
+    global error_messages
+    try:
+        with open(error_messages, 'r') as f:
+            error_messages = json.load(f)
+        print("CONSOLE: error_messages.json found.")
+    except Exception as e:
+        print(f"CONSOLE: Error, cannot grab file.")
 
 def open_folder():
     if os.name == 'posix': # used for other OS
@@ -44,6 +54,10 @@ def generate_qr(): # Main process of generating QR Code
     if choice_Feature.get() == "1": # Will change if there are new variants.
         colVar = 1
         data = ' '.join(format(ord(char), 'b') for char in data)
+    elif choice_Feature.get() == "2":
+        messagebox.showinfo("Coming soon.", "Coming soon.")
+    elif choice_Feature.get() == "3":
+        messagebox.showinfo("Coming soon.", "Coming soon.")
 
     try: # What if there is no folder yet?
         os.mkdir(qrCode_folder)
@@ -61,7 +75,7 @@ def generate_qr(): # Main process of generating QR Code
         image.save(link) # Saves with unique filename.
 
     except Exception as e: # Uh oh, QR Code isn't made properly, we want user to see.
-        messagebox.showerror("Error", f"Failed to create QR Code: {e}\n\nActually, what did you do to get here?") # Shows error.
+        messagebox.showerror("Error", f"Failed to create QR Code: {e}\n\n{error_messages[random.randint(0, 10)]}") # Shows error.
     
     return date, fileName, link # QR Code is finished! We transfer it back to starting variables
 
@@ -82,7 +96,7 @@ def view_qr(): # Pops up a window for user to see QR Code.
     top.title("Generated QR Code")
     top.resizable(False, False)
 
-    labelset = Label(top, text="QR CODE GENERATED:", font=("Helvetica", 12))
+    labelset = Label(top, text="TEXT QR CODE GENERATED:", font=("Helvetica", 12))
     labelset.pack(pady=10)
 
     try: # User wants to see QR Code.
@@ -91,10 +105,14 @@ def view_qr(): # Pops up a window for user to see QR Code.
         label.image = qr_image  # For safekeeping purposes.
         label.pack(pady=15, padx=15)
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to show QR Code: {e}\n\nMight need to deal with that.")
+        messagebox.showerror("Error", f"Failed to show QR Code: {e}\n\n{error_messages[random.randint(0, 10)]}")
         labelset.config(text="ERROR, NO QR CODE FOUND.")
 
     top.after(10000, lambda: top.destroy())  # QR Code doesn't need to be there for long, so user has 10 seconds to screenshot the QR Code before it dies.
+
+# -- To load before the whole thing runs.
+
+jsonTurned_variable() # Loaded before the main setup, to plug error_messaegs.json into the error_message variable 
 
 #  ---  GUI SETUP  ---
 main = Tk()
@@ -109,7 +127,7 @@ frame1.grid(row=0, column=0, padx=20, pady=20)
 frame2.grid(row=0, column=1, padx=20, pady=20)
 
 #frame1 contents
-label_title = Label(frame1, text="QR Code Generator", font=('Arial', 20))
+label_title = Label(frame1, text="Text QR Code Generator", font=('Arial', 20))
 label_desc = Label(frame1, text="Enter anything to generate QR Code")
 entry = Entry(frame1, width=30, font=('Arial', 17))
 label_features = Label(frame1, text="Features")
@@ -120,6 +138,8 @@ choice_Feature = StringVar(value="0")
 for featTxt, val, rowNum, colNum in [ # In loop to optimize, and it looks good in readability.
     ("Normal", "0", "0", "0"),
     ("Binary", "1", "0", "1"),
+    ("Secret", "2", "0", "2"),
+    ("Secret", "3", "0", "3")
 ]:
     Radiobutton(
         subframe1, 
