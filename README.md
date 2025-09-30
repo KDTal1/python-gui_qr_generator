@@ -1,6 +1,13 @@
 # python-gui_qr_generator
-QR Generator: 1.2.2
-- Compiles entry text, and text files, turning them into QR Codes.
+QR Generator: 1.3
+- New feature: Binary QR Code
 
-Fixes:
-- Full QR Image is now visible.
+## Fixes:
+- Error catching included in some functions.
+ 
+## Features:
+- Compiles entry text, and text files
+
+## Dependencies:
+- Pillow
+- QRCode
