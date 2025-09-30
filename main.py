@@ -116,7 +116,7 @@ jsonTurned_variable() # Loaded before the main setup, to plug error_messaegs.jso
 
 #  ---  GUI SETUP  ---
 main = Tk()
-main.title("QR Code Generator")
+main.title("Text QR Code Generator")
 main.resizable(False, False)
 
 frame1 = Frame(main)
