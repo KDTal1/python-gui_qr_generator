@@ -14,7 +14,7 @@ def jsonTurned_variable(): # Plug error_messaegs.json into the error_message var
             error_messages = json.load(f)
         print("CONSOLE: error_messages.json found.")
     except Exception as e:
-        print(f"CONSOLE: Error, cannot grab file.")
+        print("CONSOLE: Error, cannot grab file.")
 
 def browse_file(entry):
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")]) # What if user wants to add in text file instead?
