@@ -57,7 +57,7 @@ def generate_qr(folder, error_messages, choice_Feature, entry): # Main process o
         image.save(link) # Saves with unique filename.
 
     except Exception as e: # Uh oh, QR Code isn't made properly, we want user to see.
-        messagebox.showerror("Error", f"Failed to create QR Code: {e}\n\n{error_messages[random.randint(0, 12)]}") # Shows error.
+        messagebox.showerror("Error", f"Failed to create QR Code: {e}\n\n{error_messages[random.randint(0, 15)]}") # Shows error.
     
     return date, fileName, link # QR Code is finished! We transfer it back to starting variables
 
@@ -78,7 +78,7 @@ def view_qr(error_messages): # Pops up a window for user to see QR Code.
         label.image = qr_image  # For safekeeping purposes.
         label.pack(pady=15, padx=15)
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to show QR Code: {e}\n\n{error_messages[random.randint(0, 12)]}")
+        messagebox.showerror("Error", f"Failed to show QR Code: {e}\n\n{error_messages[random.randint(0, 15)]}")
         labelset.config(text="ERROR, NO QR CODE FOUND.")
 
     top.after(10000, lambda: top.destroy())  # QR Code doesn't need to be there for long, so user has 10 seconds to screenshot the QR Code before it dies.

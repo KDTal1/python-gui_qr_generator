@@ -1,11 +1,5 @@
-#current version: 1.4
+#current version: 1.4.1
 #made in Python 3.13
-'''
-1.4
-- Colored buttons
-- Added new modes
-- Colored qr codes for every mode
-'''
 
 # Script uses these following imports.
 import commands, mainProcess

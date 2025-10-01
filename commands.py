@@ -25,7 +25,16 @@ def browse_file(entry):
         entry.delete(0, END) # Deletes what's inside of entry first.
         entry.insert(0, file_to_Text) 
 
+def makeFolder():
+    try: # What if there is no folder yet?
+            os.mkdir(qrCode_folder)
+    except FileExistsError: # Checks to see if folder is already produced.
+        pass
+    except Exception as e: # Checks other errors, basically.
+        print(f"Debug Error: {e}")
+
 def open_folder():
+    makeFolder()
     if os.name == 'posix': # used for other OS
         os.system(f'open "{qrCode_folder}"')
     else:

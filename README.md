@@ -1,5 +1,5 @@
 # python-gui_qr_generator
-QR Generator: 1.4
+QR Generator: 1.4.1
 
 ## Changes
 - Renamed Features to Modes
