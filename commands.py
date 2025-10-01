@@ -1,5 +1,5 @@
 import json, os
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from tkinter import *
 
 # Commands are the smaller commands, or the other features that can be accessed w/o gui interaction.
@@ -33,3 +33,21 @@ def open_folder():
 
 def clear_entry(entry):
     entry.delete(0, END)
+
+def about():
+    messagebox.showinfo("Text QR Code Generator", "Made by KDTal1 in his spare time. (Possibly also through boredom.)")
+
+# FUNCTIONS FOR LAST MODE
+def vencrypt(data):
+    result = []
+    key = error_messages[12].upper()
+    ki = 0
+    for ch in data:
+        if ch.isalpha():
+            offset = 65 if ch.isupper() else 97
+            shift = ord(key[ki % len(key)]) - 65
+            result.append(chr((ord(ch) - offset + shift) % 26 + offset))
+            ki += 1
+        else:
+            result.append(ch)
+    return ''.join(result)
