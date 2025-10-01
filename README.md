@@ -1,4 +1,4 @@
-# python-gui_qr_generator
+# GUI Text to QR Code Generator
 QR Generator: 1.4.1
 
 ## Changes
