@@ -1,10 +1,6 @@
 # python-gui_qr_generator
-QR Generator: 1.4.1
-
-## Changes
-- Renamed Features to Modes
-- Added color to buttons
-- New modes!
+QR Generator: 1.5
+### This will be my last version for this project, the next versions will just be bug fixes.
  
 ## Features:
 - Compiles entry text, and text files

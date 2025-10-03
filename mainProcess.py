@@ -3,12 +3,12 @@ from PIL import ImageTk
 from tkinter import *
 from tkinter import messagebox
 from datetime import datetime
-
 from commands import vencrypt
 
 # Main Process file is the main commands making the program functional.
 
 color = ["White", "Green", "Yellow", "#5691DA", "#DCCD90"] # Used for color selection.
+colVar = 0 
 
 # Variables that will be used for returning value
 date = ""
@@ -16,15 +16,17 @@ fileName = ""
 link = ""
 
 # -- FUNCTIONS --
-def generate_qr(folder, error_messages, choice_Feature, entry): # Main process of generating QR Code
-    global data, date, fileName, link
-    colVar = 0 
+def folderCheck(folder):
+    try: # What if there is no folder yet?
+            os.mkdir(folder)
+    except FileExistsError: # Checks to see if folder is already produced.
+        pass
+    except Exception as e: # Checks other errors, basically.
+        print(f"Debug Error: {e}")
 
-    data = entry.get()
-    date = datetime.now().strftime("%y%m%d-%H%M%S") # Gets current date and time, for unique filename.
-    fileName = f"qrcode_{date}.png"
-    link = f"{folder}/{fileName}"
-
+def choiceFeature(choice_Feature):
+    global colVar, data
+    
     match choice_Feature.get():
         case "1": # User picks Binary mode.
             colVar = 1
@@ -41,12 +43,17 @@ def generate_qr(folder, error_messages, choice_Feature, entry): # Main process o
             colVar = 4
             data = vencrypt(data)
 
-    try: # What if there is no folder yet?
-        os.mkdir(folder)
-    except FileExistsError: # Checks to see if folder is already produced.
-        pass
-    except Exception as e: # Checks other errors, basically.
-        print(f"Debug Error: {e}")
+
+def generate_qr(folder, error_messages, choice_Feature, entry): # Main process of generating QR Code
+    global data, date, fileName, link
+
+    data = entry.get()
+    date = datetime.now().strftime("%y%m%d-%H%M%S") # Gets current date and time, for unique filename.
+    fileName = f"qrcode_{date}.png"
+    link = f"{folder}/{fileName}"
+
+    choiceFeature(choice_Feature)
+    folderCheck(folder)
 
     try: # The QR code is being created.
         qr = qrcode.QRCode(version=3, box_size=3, border=4)
