@@ -1,5 +1,5 @@
 # python-gui_qr_generator
-QR Generator: 1.5
+## QR Generator 1.5 - Initial
 ### This will be my last version for this project, the next versions will just be bug fixes.
  
 ## Features:
