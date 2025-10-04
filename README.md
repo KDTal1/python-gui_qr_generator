@@ -1,4 +1,4 @@
-# python-gui_qr_generator
+# PYTHON GUI Text to QR Generator
 ## QR Generator 1.5 - Initial
 ### This will be my last version for this project, the next versions will just be bug fixes.
  
