@@ -11,7 +11,7 @@ commands.jsonTurned_variable() # Loaded before the main setup, to plug error_mes
 
 #  ---  GUI SETUP  ---
 main = Tk()
-main.title("Text QR Code Generato - 1.5 - KDTal1")
+main.title("Text QR Code Generator - 1.5 - KDTal1")
 main.resizable(False, False)
 
 frame1 = Frame(main)
